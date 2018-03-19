@@ -21,6 +21,7 @@ export class ChatComponent implements OnInit {
 
   send() {
     this.socket.emit('message', {body: this.message, user: {name: 'me', avatar: 1}});
+    this.message = '';
   }
 
 }
