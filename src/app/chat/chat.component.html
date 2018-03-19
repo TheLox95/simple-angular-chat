@@ -3,10 +3,21 @@
     <mat-list-item role="listitem" *ngFor="let message of messages">
       <mat-card-header>
         <img mat-card-avatar class="example-header-image" src="assets/{{message.user.avatar}}.jpg">
-        <mat-card-title >{{message.user.name}}</mat-card-title>
+        <mat-card-title>{{message.user.name}}</mat-card-title>
         <mat-card-subtitle>{{message.body}}</mat-card-subtitle>
         <mat-divider></mat-divider>
       </mat-card-header>
     </mat-list-item>
   </mat-list>
+</mat-card>
+
+<mat-card>
+  <form (ngSubmit)="send()">
+    <mat-form-field class="form">
+      <input matInput placeholder="Write a message" class="input-full-width" [(ngModel)]="message" name="message">
+    </mat-form-field>
+    <p>
+        <button type="submit" md-raised-button>SEND</button>
+      </p>
+  </form>
 </mat-card>

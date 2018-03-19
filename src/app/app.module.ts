@@ -1,9 +1,11 @@
 import { ChatComponent } from './chat/chat.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {MatListModule, MatCardModule, MatToolbarModule} from '@angular/material';
+import {MatListModule, MatCardModule, MatToolbarModule, MatInputModule, MatButtonModule} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,9 +15,13 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     MatListModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatInputModule,
+    MatButtonModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

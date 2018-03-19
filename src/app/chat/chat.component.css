@@ -6,3 +6,7 @@
 .example-header-image{
   background-size: cover;
 }
+
+.form, .input-full-width {
+  width: 100%;
+}

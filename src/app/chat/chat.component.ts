@@ -9,13 +9,18 @@ import * as socketIo from 'socket.io-client';
 })
 export class ChatComponent implements OnInit {
   messages: Message[] = [];
+  socket  = socketIo(`https://simple-react-chat.herokuapp.com/`, {path: '/api'});
+  message = '';
 
   constructor() {
-    const socket  = socketIo(`https://simple-react-chat.herokuapp.com/`, {path: '/api'});
-    socket.on('message', (data: Message) => this.messages.push(data));
+    this.socket.on('message', (data: Message) => this.messages.push(data));
   }
 
   ngOnInit() {
+  }
+
+  send() {
+    this.socket.emit('message', {body: this.message, user: {name: 'me', avatar: 1}});
   }
 
 }
