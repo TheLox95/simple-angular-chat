@@ -1,0 +1,8 @@
+#messageBox{
+  max-height: 400px;
+  overflow: auto;
+}
+
+.example-header-image{
+  background-size: cover;
+}

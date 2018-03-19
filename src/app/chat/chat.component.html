@@ -1,0 +1,12 @@
+<mat-card id="messageBox">
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let message of messages">
+      <mat-card-header>
+        <img mat-card-avatar class="example-header-image" src="assets/{{message.user.avatar}}.jpg">
+        <mat-card-title >{{message.user.name}}</mat-card-title>
+        <mat-card-subtitle>{{message.body}}</mat-card-subtitle>
+        <mat-divider></mat-divider>
+      </mat-card-header>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
