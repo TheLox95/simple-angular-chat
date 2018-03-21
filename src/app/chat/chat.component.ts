@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.fileNameDialogRef = this._dialog.open(UserRegisterComponent, {disableClose: true, data: this._usersStore});
+    this.fileNameDialogRef.afterClosed().subscribe(user => this.user = user);
 
     this.socket.on('user', users => {
       console.log(users);
