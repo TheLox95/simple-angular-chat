@@ -35,11 +35,20 @@ export class ChatComponent implements OnInit {
         this.users = Array.from(this._usersStore.values());
       });
     });
+
+    this.listenMessages();
   }
 
   send() {
     this.socket.emit('message', {body: this.message, user: this.user});
     this.message = '';
+  }
+
+  listenMessages() {
+    this.socket.on('message', message => {
+      console.log(message);
+      this.messages.push({body: message.body, user: this.user} as Message);
+    });
   }
 
 }
