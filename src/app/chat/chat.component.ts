@@ -1,6 +1,9 @@
 import { Message } from './message';
 import { Component, OnInit } from '@angular/core';
 import * as socketIo from 'socket.io-client';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { UserRegisterComponent } from '../user-register/user-register.component';
+import { User } from './user';
 
 @Component({
   selector: 'app-chat',
@@ -11,16 +14,30 @@ export class ChatComponent implements OnInit {
   messages: Message[] = [];
   socket  = socketIo(`https://simple-react-chat.herokuapp.com/`, {path: '/api'});
   message = '';
+  user: User;
+  users: User[] = [];
+  private _usersStore: Map<string, User> = new Map();
 
-  constructor() {
-    this.socket.on('message', (data: Message) => this.messages.push(data));
+  fileNameDialogRef: MatDialogRef<UserRegisterComponent>;
+
+  constructor(private _dialog: MatDialog){
+
   }
 
   ngOnInit() {
+    this.fileNameDialogRef = this._dialog.open(UserRegisterComponent, {disableClose: true, data: this._usersStore});
+
+    this.socket.on('user', users => {
+      console.log(users);
+      users.forEach(user => {
+        this._usersStore.set(user.name, user);
+        this.users = Array.from(this._usersStore.values());
+      });
+    });
   }
 
   send() {
-    this.socket.emit('message', {body: this.message, user: {name: 'me', avatar: 1}});
+    this.socket.emit('message', {body: this.message, user: this.user});
     this.message = '';
   }
 

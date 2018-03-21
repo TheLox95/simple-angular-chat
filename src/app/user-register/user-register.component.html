@@ -1,0 +1,25 @@
+<form (ngSubmit)="submit()">
+  <div *ngIf="error">There is the following error: {{error}}</div>
+  <h1 mat-dialog-title>Login</h1>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <mat-select placeholder="Select your Avatar" [(ngModel)]="avatar"
+      floatPlaceholder="never"
+      name="avatarOption"
+      (change)="optionSelected($event)">
+        <mat-option *ngFor="let avatar of avatars" [value]="avatar">
+          <img [src]="avatar.icon" [alt]="avatar.viewValue">
+          {{avatar.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Enter username" [(ngModel)]="user.name" name="name">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="submit">Enter</button>
+  </mat-dialog-actions>
+</form>
