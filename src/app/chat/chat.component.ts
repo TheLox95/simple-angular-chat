@@ -1,5 +1,5 @@
 import { Message } from './message';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import * as socketIo from 'socket.io-client';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { UserRegisterComponent } from '../user-register/user-register.component';
@@ -20,9 +20,7 @@ export class ChatComponent implements OnInit {
 
   fileNameDialogRef: MatDialogRef<UserRegisterComponent>;
 
-  constructor(private _dialog: MatDialog){
-
-  }
+  constructor(private _dialog: MatDialog) {}
 
   ngOnInit() {
     this.fileNameDialogRef = this._dialog.open(UserRegisterComponent, {disableClose: true, data: this._usersStore});
@@ -37,6 +35,7 @@ export class ChatComponent implements OnInit {
     });
 
     this.listenMessages();
+    this.listenDisconnection();
   }
 
   send() {
@@ -47,8 +46,19 @@ export class ChatComponent implements OnInit {
   listenMessages() {
     this.socket.on('message', message => {
       console.log(message);
-      this.messages.push({body: message.body, user: this.user} as Message);
+      this.messages.push({body: message.body, user: message.user} as Message);
     });
   }
 
+  listenDisconnection() {
+    this.socket.on('disconnection', username => {
+      this._usersStore.delete(username);
+      this.users = Array.from(this._usersStore.values());
+    });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event) {
+    this.socket.emit('disconnection', this.user.name.toString());
+  }
 }
