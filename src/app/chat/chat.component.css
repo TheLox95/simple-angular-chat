@@ -1,5 +1,10 @@
 #messageBox{
-  max-height: 400px;
+  max-height: 200px;
+  overflow: auto;
+}
+
+#userList{
+  max-height: 100px;
   overflow: auto;
 }
 

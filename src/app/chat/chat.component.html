@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-list role="list" *ngIf="users">
+  <mat-list role="list" *ngIf="users" id="userList">
     <mat-list-item role="listitem" *ngFor="let user of users">
       <mat-card-header>
         <img mat-card-avatar class="example-header-image" src="assets/{{user.avatar}}.jpg">
@@ -29,7 +29,7 @@
       <input matInput placeholder="Write a message" class="input-full-width" [(ngModel)]="message" name="message">
     </mat-form-field>
     <p>
-        <button type="submit" md-raised-button>SEND</button>
+        <button type="submit" mat-button>SEND</button>
       </p>
   </form>
 </mat-card>
